@@ -190,7 +190,7 @@ const Slide = () => {
                         defaultValue={slideTitle}
                         onBlur={onChangeSlideTitle}
                         sx={styles.titleText}
-                        InputProps={{ placeholder: 'Insert title' }}
+                        InputProps={{ placeholder: 'Insert title here' }}
                     />
                 </Grid>
 
