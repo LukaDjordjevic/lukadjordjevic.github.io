@@ -21,11 +21,17 @@ const IconWithText = ({
                 '& .MuiInputBase-input': {
                     textAlign: 'center',
                 },
+                '& .MuiInput-root:before': {
+                    borderBottom: 'none',
+                },
             },
             descriptionInput: {
                 '& .MuiInputBase-input': {
                     textAlign: 'center',
                     fontSize: 12,
+                },
+                '& .MuiInput-root:before': {
+                    borderBottom: 'none',
                 },
             },
         }),

@@ -29,6 +29,9 @@ const Slide = () => {
                     textAlign: 'center',
                     fontSize: 40,
                 },
+                '& .MuiInput-root:before': {
+                    borderBottom: 'none',
+                },
                 marginBottom: 5,
             },
             title: {
@@ -147,30 +150,33 @@ const Slide = () => {
 
     const onExportToHTML = () => {
         // const slide = document.getElementById('slide')
-        const html = ReactDOMServer.renderToString(
-            <Grid container justifyContent="space-around" spacing={4}>
-                <Grid item xs={12} justifyContent="center">
-                    <TextField
-                        id="slideTitle"
-                        variant="standard"
-                        defaultValue={slideTitle}
-                        onBlur={onChangeSlideTitle}
-                        sx={styles.input}
-                    />
-                </Grid>
+        const html = ReactDOMServer.renderToString
+        // (
 
-                <SortableList onSortEnd={onSortEnd} axis="x" distance={5} />
-                <Button onClick={onExportToPDF}>PDF</Button>
-                <Button onClick={onExportToHTML}>HTML</Button>
-            </Grid>
-            // <div>
-            //     <h4>{'tit'}</h4>
-            //     <p>{'ass'}</p>
-            //     <button className="btn btn-danger btn-block">
-            //         I want to go here !!{' '}
-            //     </button>
-            // </div>
-        )
+        // <Grid container justifyContent="space-around" spacing={4}>
+        //     <Grid item xs={12} justifyContent="center">
+        //         <TextField
+        //             id="slideTitle"
+        //             variant="standard"
+        //             defaultValue={slideTitle}
+        //             onBlur={onChangeSlideTitle}
+        //             sx={styles.input}
+        //         />
+        //     </Grid>
+
+        //     <SortableList onSortEnd={onSortEnd} axis="x" distance={5} />
+        //     <Button onClick={onExportToPDF}>PDF</Button>
+        //     <Button onClick={onExportToHTML}>HTML</Button>
+        // </Grid>
+
+        // <div>
+        //     <h4>{'tit'}</h4>
+        //     <p>{'ass'}</p>
+        //     <button className="btn btn-danger btn-block">
+        //         I want to go here !!{' '}
+        //     </button>
+        // </div>
+        // )
         console.log('html:', html)
     }
 
