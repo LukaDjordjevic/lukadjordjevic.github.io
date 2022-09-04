@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo, useRef, useCallback } from 'react'
-import * as ReactDOMServer from 'react-dom/server'
 import {
     arrayMove,
     SortableContainer,
@@ -46,7 +45,6 @@ const Slide = () => {
         }),
         []
     )
-    const [slideTitle, setSlideTitle] = useState('')
 
     const initialSections = [
         {
@@ -67,6 +65,7 @@ const Slide = () => {
     ]
 
     const [sections, setIcons] = useState(initialSections)
+    const [slideTitle, setSlideTitle] = useState('')
 
     const SortableItem = SortableElement(({ icon, itemIndex }) => {
         return (
@@ -74,7 +73,7 @@ const Slide = () => {
                 <IconWithText
                     index={itemIndex}
                     icon={icon}
-                    onChangeTitle={onChangeTitle}
+                    onChangeSectionTitle={onChangeSectionTitle}
                     onChangeDescription={onChangeDescription}
                     onBrowserIconClick={onBrowserIconClick}
                 />
@@ -107,11 +106,12 @@ const Slide = () => {
     }, [])
 
     const onKeyUp = useCallback(e => {
+        if (e.target.id === 'description') return
         switch (e.keyCode) {
-            case 13: // enter
+            case 13: // Enter
                 e.target.blur()
-
                 break
+            default:
         }
     }, [])
 
@@ -120,7 +120,7 @@ const Slide = () => {
         setSlideTitle(value)
     }
 
-    const onChangeTitle = (event, index) => {
+    const onChangeSectionTitle = (event, index) => {
         const value = event.target.value
         const newSections = [...sections]
         newSections[index] = { ...newSections[index], title: value }
@@ -148,38 +148,6 @@ const Slide = () => {
         content: () => slideRef.current,
     })
 
-    const onExportToHTML = () => {
-        // const slide = document.getElementById('slide')
-        const html = ReactDOMServer.renderToString
-        // (
-
-        // <Grid container justifyContent="space-around" spacing={4}>
-        //     <Grid item xs={12} justifyContent="center">
-        //         <TextField
-        //             id="slideTitle"
-        //             variant="standard"
-        //             defaultValue={slideTitle}
-        //             onBlur={onChangeSlideTitle}
-        //             sx={styles.input}
-        //         />
-        //     </Grid>
-
-        //     <SortableList onSortEnd={onSortEnd} axis="x" distance={5} />
-        //     <Button onClick={onExportToPDF}>PDF</Button>
-        //     <Button onClick={onExportToHTML}>HTML</Button>
-        // </Grid>
-
-        // <div>
-        //     <h4>{'tit'}</h4>
-        //     <p>{'ass'}</p>
-        //     <button className="btn btn-danger btn-block">
-        //         I want to go here !!{' '}
-        //     </button>
-        // </div>
-        // )
-        console.log('html:', html)
-    }
-
     return (
         <div ref={slideRef} id="slide">
             <Grid container justifyContent="space-around" spacing={4}>
@@ -191,7 +159,7 @@ const Slide = () => {
                     alignItems="center"
                 >
                     <TextField
-                        id="title"
+                        id="slideTitle"
                         variant="standard"
                         defaultValue={slideTitle}
                         onBlur={onChangeSlideTitle}
@@ -216,16 +184,17 @@ const Slide = () => {
                 </Grid>
                 <Grid item xs={6} sx={styles.flexRow}>
                     <Button
-                        onClick={onExportToHTML}
+                        href={
+                            'https://github.com/LukaDjordjevic/lukadjordjevic.github.io'
+                        }
                         sx={{ marginTop: 10 }}
                         variant="contained"
                     >
-                        Export to HTML
+                        GitHub repo
                     </Button>
                 </Grid>
             </Grid>
         </div>
     )
 }
-
 export default Slide

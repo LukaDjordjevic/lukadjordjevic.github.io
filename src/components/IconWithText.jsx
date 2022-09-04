@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react'
+import React, { useMemo, useState } from 'react'
 import Icon from '@mui/material/Icon'
 import IconButton from '@mui/material/IconButton'
 import TextField from '@mui/material/TextField'
@@ -8,27 +8,28 @@ import Popover from '@mui/material/Popover'
 const IconWithText = ({
     icon,
     index,
-    onChangeTitle,
+    onChangeSectionTitle,
     onChangeDescription,
     onBrowserIconClick,
 }) => {
     const { name, title, description } = icon
-    const [anchorEl, setAnchorEl] = useState(null)
-
     const styles = useMemo(
         () => ({
-            input: {
+            titleInput: {
+                marginTop: 1,
                 '& .MuiInputBase-input': {
                     textAlign: 'center',
+                    fontSize: 20,
                 },
                 '& .MuiInput-root:before': {
                     borderBottom: 'none',
                 },
             },
             descriptionInput: {
+                marginTop: 2,
                 '& .MuiInputBase-input': {
                     textAlign: 'center',
-                    fontSize: 12,
+                    fontSize: 15,
                 },
                 '& .MuiInput-root:before': {
                     borderBottom: 'none',
@@ -38,20 +39,9 @@ const IconWithText = ({
         []
     )
 
-    useEffect(() => {
-        window.addEventListener('keyup', onKeyUp)
-        return () => {
-            window.removeEventListener('keyup', onKeyUp)
-        }
-    }, [])
-
-    const onKeyUp = useCallback(e => {
-        switch (e.keyCode) {
-            case 13: // enter
-                e.target.blur()
-                break
-        }
-    }, [])
+    const [anchorEl, setAnchorEl] = useState(null)
+    const open = Boolean(anchorEl)
+    const id = open ? 'simple-popover' : undefined
 
     const onIconClick = event => {
         setAnchorEl(event.currentTarget)
@@ -61,9 +51,6 @@ const IconWithText = ({
         setAnchorEl(null)
     }
 
-    const open = Boolean(anchorEl)
-    const id = open ? 'simple-popover' : undefined
-
     return (
         <>
             <IconButton sx={{ borderRadius: 5 }} onClick={onIconClick}>
@@ -71,15 +58,20 @@ const IconWithText = ({
             </IconButton>
             <TextField
                 id="title"
-                InputProps={{ placeholder: 'Insert text here' }}
+                InputProps={{
+                    placeholder: 'Insert text',
+                }}
                 variant="standard"
                 defaultValue={title}
-                onBlur={event => onChangeTitle(event, index)}
-                sx={styles.input}
+                onBlur={event => onChangeSectionTitle(event, index)}
+                sx={styles.titleInput}
             />
             <TextField
                 id="description"
-                InputProps={{ placeholder: 'Add additional text here' }}
+                InputProps={{
+                    placeholder: 'Add additional text',
+                    multiline: true,
+                }}
                 variant="standard"
                 defaultValue={description}
                 onBlur={event => onChangeDescription(event, index)}
