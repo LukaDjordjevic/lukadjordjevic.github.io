@@ -1,5 +1,5 @@
 # Storydoc frontend challenge
-By Luka Djordjevic
+By Luka Djordjevic (lulo.djordjevic@gmail.com)
 
 ## Installation
 
@@ -18,5 +18,5 @@ Clone repo and then<br>
 <a href="https://lukadjordjevic.github.io/" rel="noopener noreferrer" target="_blank">DEMO</a>
 
 ## Notes
-
-Any comments would be appreciated.
+- Due to time constraints, I didn't implement export to HTML
+- Any comments would be appreciated.
